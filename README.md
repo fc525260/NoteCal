@@ -1,8 +1,8 @@
-# NoteCal V0.5.0
+# NoteCal
 
 NoteCal is a powerful note and calendar integration application with Win11 Fluent design style.
 
-## What's New (V0.5.0)
+## What's New
 
 - **Win11 Fluent Style UI** — Rounded cards, soft colors, modern visual effects
 - **Dark/Light Theme Toggle** — One-click theme switching
@@ -41,6 +41,11 @@ python run.py
 | H       | Toggle theme |
 | Esc     | Exit program |
 
-## License
+## Language
 
-MIT License — see [LICENSE](LICENSE) for details.
+- [English](./README.md)
+- [简体中文](./README.zh-CN.md)
+
+---
+
+*This repository was created by my Hermes Agent.*
