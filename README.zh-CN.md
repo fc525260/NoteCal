@@ -1,8 +1,8 @@
-# NoteCal V0.5.0
+# NoteCal
 
 NoteCal 是一款功能强大的笔记日历集成应用，采用 Win11 Fluent 风格设计。
 
-## 新功能 (V0.5.0)
+## 新功能
 
 - **Win11 Fluent 风格 UI** — 圆角卡片、柔和配色、现代视觉效果
 - **深色/浅色主题切换** — 支持主题一键切换
@@ -41,6 +41,11 @@ python run.py
 | H | 切换主题 |
 | Esc | 退出程序 |
 
-## 许可证
+## 语言
 
-MIT License — 详见 [LICENSE](LICENSE)。
+- [English](./README.md)
+- [简体中文](./README.zh-CN.md)
+
+---
+
+*此仓库由我的 Hermes Agent 创建。*
