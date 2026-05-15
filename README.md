@@ -1,42 +1,46 @@
 # NoteCal V0.5.0
 
-NoteCal 是一款功能强大的笔记日历集成应用，采用 Win11 Fluent 风格设计。
+NoteCal is a powerful note and calendar integration application with Win11 Fluent design style.
 
-## 新功能 (V0.5.0)
+## What's New (V0.5.0)
 
-- **Win11 Fluent 风格 UI** — 圆角卡片、柔和配色、现代视觉效果
-- **深色/浅色主题切换** — 支持主题一键切换
-- **QTableView 日历网格** — 使用 Model/View 架构，更规范高效
-- **自定义单元格委托** — 绘制今天高亮、笔记标记、农历显示
-- **键盘快捷键** — 左/右方向键翻月，T 键今天，S 键设置，H 键主题切换
-- **代码质量提升** — 完整类型注解、logging 替代 print、简化核心逻辑
+- **Win11 Fluent Style UI** — Rounded cards, soft colors, modern visual effects
+- **Dark/Light Theme Toggle** — One-click theme switching
+- **QTableView Calendar Grid** — Model/View architecture for cleaner and more efficient code
+- **Custom Cell Delegates** — Today highlighting, note markers, lunar calendar display
+- **Keyboard Shortcuts** — Left/Right arrows to navigate months, T for today, S for settings, H for theme toggle
+- **Code Quality** — Full type annotations, logging instead of print, simplified core logic
 
-## 功能特点
+## Features
 
-- 笔记与日历无缝集成
-- 农历日期显示支持
-- 系统托盘运行
-- 深色/浅色双主题
-- 键盘快捷操作
+- Seamless integration of notes and calendar
+- Lunar calendar date display
+- System tray running
+- Dark/Light dual themes
+- Keyboard shortcut operations
 
-## 安装方法
+## Installation
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## 使用方法
+## Usage
 
 ```bash
 python run.py
 ```
 
-## 快捷键
+## Keyboard Shortcuts
 
-| 快捷键 | 功能 |
-|--------|------|
-| ← / → | 上一月 / 下一月 |
-| T | 跳转到今天 |
-| S | 打开设置 |
-| H | 切换主题 |
-| Esc | 退出程序 |
+| Shortcut | Function |
+|----------|----------|
+| ← / →   | Previous / Next month |
+| T       | Jump to today |
+| S       | Open settings |
+| H       | Toggle theme |
+| Esc     | Exit program |
+
+## License
+
+MIT License — see [LICENSE](LICENSE) for details.
