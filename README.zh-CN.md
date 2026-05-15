@@ -27,7 +27,17 @@ pip install -r requirements.txt
 
 ## 使用方法
 
+### 一键启动 (Windows)
+
+双击 `启动 NoteCal.bat` 即可直接运行。
+
+或手动使用虚拟环境运行：
+
 ```bash
+python -m venv venv
+venv\Scripts\activate    # Windows
+# source venv/bin/activate  # Linux/macOS
+pip install -r requirements.txt
 python run.py
 ```
 
