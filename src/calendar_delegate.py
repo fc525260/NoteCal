@@ -4,12 +4,17 @@
 提供自定义的单元格绘制，实现卡片式立体感风格的日历外观。
 遵循 Win11 Fluent Design 和 UI/UX Pro Max 设计指南。
 """
-from PyQt5.QtCore import Qt, QRect, QRectF, QSize, QPropertyAnimation, QEasingCurve, QPoint
+from PyQt5.QtCore import QRect, QRectF, QSize, Qt
 from PyQt5.QtGui import (
-    QBrush, QColor, QFont, QPen, QPainter, QPainterPath,
-    QLinearGradient, QRadialGradient
+    QBrush,
+    QColor,
+    QFont,
+    QLinearGradient,
+    QPainter,
+    QPainterPath,
+    QPen,
 )
-from PyQt5.QtWidgets import QStyledItemDelegate, QStyle, QStyleOptionViewItem
+from PyQt5.QtWidgets import QStyle, QStyledItemDelegate
 
 from .calendar_model import CalendarModel
 from .theme import ThemeManager
@@ -52,7 +57,6 @@ class CalendarDelegate(QStyledItemDelegate):
         is_business_trip = model.data(index, CalendarModel.ROLE_BUSINESS_TRIP)
         is_marked = model.data(index, CalendarModel.ROLE_IS_MARKED)
         lunar = model.data(index, CalendarModel.ROLE_LUNAR)
-        is_weekend = index.column() >= 5
         is_dark = self._theme_manager.current_theme == ThemeManager.DARK_THEME
         is_selected = option.state & QStyle.State_Selected
         is_hovered = option.state & QStyle.State_MouseOver

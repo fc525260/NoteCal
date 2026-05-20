@@ -21,8 +21,10 @@ NoteCal is a powerful note and calendar integration application with Win11 Fluen
 
 ## Installation
 
-```bash
-pip install -r requirements.txt
+Use the project virtual environment. Do not install dependencies globally.
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
 ## Usage
@@ -33,12 +35,24 @@ Double-click `启动 NoteCal.bat` to launch directly.
 
 Or run manually with a virtual environment:
 
-```bash
-python -m venv venv
-venv\Scripts\activate    # Windows
-# source venv/bin/activate  # Linux/macOS
-pip install -r requirements.txt
-python run.py
+```powershell
+.\.venv\Scripts\python.exe run.py
+```
+
+## Development
+
+Run the standard checks before submitting changes:
+
+```powershell
+.\.venv\Scripts\python.exe -m ruff check src tests
+.\.venv\Scripts\python.exe -m pytest
+.\.venv\Scripts\python.exe -m compileall -q run.py src tests
+```
+
+Build the Windows executable with PyInstaller:
+
+```powershell
+.\.venv\Scripts\python.exe -m PyInstaller --noconfirm --clean NoteCal.spec
 ```
 
 ## Keyboard Shortcuts
@@ -50,6 +64,10 @@ python run.py
 | S       | Open settings |
 | H       | Toggle theme |
 | Esc     | Exit program |
+
+## Project Data
+
+Runtime data is written under `data/`, including notes, settings, and logs. Treat this directory as local user data and do not commit personal data files.
 
 ## Language
 

@@ -40,5 +40,6 @@ Thumbs.db
 
 # Notes data (用户数据，不提交)
 notes/
+data/
 *.db
 *.sqlite

@@ -3,10 +3,10 @@
 
 负责笔记和应用设置的持久化存储，提供数据加载、保存和访问接口。
 """
-import os
 import json
 import logging
-from typing import Dict, Any, Optional
+import os
+from typing import Any, Dict
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +41,7 @@ class DataManager:
         """加载笔记数据"""
         try:
             if os.path.exists(self.notes_path):
-                with open(self.notes_path, "r", encoding="utf-8") as f:
+                with open(self.notes_path, encoding="utf-8") as f:
                     self.notes = json.load(f)
                 logger.info(f"已加载笔记数据: {self.notes_path}")
             else:
@@ -66,7 +66,7 @@ class DataManager:
         """加载设置"""
         try:
             if os.path.exists(self.settings_path):
-                with open(self.settings_path, "r", encoding="utf-8") as f:
+                with open(self.settings_path, encoding="utf-8") as f:
                     loaded_settings = json.load(f)
                     for key, value in loaded_settings.items():
                         self.settings[key] = value

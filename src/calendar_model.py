@@ -3,12 +3,15 @@
 
 提供基于 QAbstractTableModel 的日历数据模型，用于 QTableView 显示。
 """
-from typing import Dict, Any, Optional
-from PyQt5.QtCore import QAbstractTableModel, Qt, QModelIndex
-from PyQt5.QtGui import QColor
+from typing import Any, Dict, Optional
+
+from PyQt5.QtCore import QAbstractTableModel, QModelIndex, Qt
 
 from .calendar_core import CalendarCore
+from .calendar_roles import CalendarRole
 from .data_manager import DataManager
+
+INVALID_INDEX = QModelIndex()
 
 
 class CalendarModel(QAbstractTableModel):
@@ -17,16 +20,16 @@ class CalendarModel(QAbstractTableModel):
     使用 TableModel 模式提供日历数据，支持自定义角色传递日期信息。
     """
 
-    ROLE_DAY = Qt.UserRole + 1
-    ROLE_YEAR = Qt.UserRole + 2
-    ROLE_MONTH = Qt.UserRole + 3
-    ROLE_DATE_STRING = Qt.UserRole + 4
-    ROLE_IS_TODAY = Qt.UserRole + 5
-    ROLE_HAS_NOTE = Qt.UserRole + 6
-    ROLE_LUNAR = Qt.UserRole + 7
-    ROLE_OVERTIME = Qt.UserRole + 8
-    ROLE_BUSINESS_TRIP = Qt.UserRole + 9
-    ROLE_IS_MARKED = Qt.UserRole + 10
+    ROLE_DAY = CalendarRole.DAY
+    ROLE_YEAR = CalendarRole.YEAR
+    ROLE_MONTH = CalendarRole.MONTH
+    ROLE_DATE_STRING = CalendarRole.DATE_STRING
+    ROLE_IS_TODAY = CalendarRole.IS_TODAY
+    ROLE_HAS_NOTE = CalendarRole.HAS_NOTE
+    ROLE_LUNAR = CalendarRole.LUNAR
+    ROLE_OVERTIME = CalendarRole.OVERTIME
+    ROLE_BUSINESS_TRIP = CalendarRole.BUSINESS_TRIP
+    ROLE_IS_MARKED = CalendarRole.IS_MARKED
 
     WEEKDAYS = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
 
@@ -85,11 +88,11 @@ class CalendarModel(QAbstractTableModel):
         self._marked_dates = set(date_strings)
         self.refresh()
 
-    def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
+    def rowCount(self, parent: QModelIndex = INVALID_INDEX) -> int:
         """返回行数（日历固定 6 行）"""
         return 6
 
-    def columnCount(self, parent: QModelIndex = QModelIndex()) -> int:
+    def columnCount(self, parent: QModelIndex = INVALID_INDEX) -> int:
         """返回列数（固定 7 列）"""
         return 7
 

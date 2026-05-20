@@ -3,8 +3,9 @@
 
 提供公历和农历之间的转换功能，依赖外部 lunarcalendar 库。
 """
+import importlib.util
 import logging
-from typing import Optional, Any
+from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +36,7 @@ class LunarUtils:
 
         if self.lunar_available:
             try:
-                from lunarcalendar import Converter, Solar, Lunar
+                from lunarcalendar import Converter, Lunar, Solar
                 self.converter = Converter()
                 self.Solar = Solar
                 self.Lunar = Lunar
@@ -53,10 +54,10 @@ class LunarUtils:
         Returns:
             如果 lunarcalendar 库已安装则返回 True，否则返回 False
         """
-        try:
-            import lunarcalendar
+        if importlib.util.find_spec("lunarcalendar") is not None:
             return True
-        except ImportError:
+
+        else:
             logger.warning(
                 "lunarcalendar 库未安装，农历功能不可用。"
                 "请运行 'pip install lunarcalendar' 安装农历库"

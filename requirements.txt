@@ -1,2 +1,4 @@
 PyQt5>=5.15.0
 lunarcalendar>=0.0.9
+pytest>=8.0.0
+ruff>=0.4.0

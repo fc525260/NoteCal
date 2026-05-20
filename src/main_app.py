@@ -4,25 +4,36 @@
 日历应用的主窗口，使用 QTableView + CalendarModel + CalendarDelegate 实现现代化日历界面。
 支持 Win11 Fluent 风格的浅色/深色主题切换。
 """
-import sys
-import os
 import logging
-import calendar as cal_module
+import os
+import sys
+from dataclasses import dataclass
 from datetime import datetime
-from typing import Optional
+from typing import Callable, Optional
 
+from PyQt5.QtCore import QModelIndex, Qt, QTimer
+from PyQt5.QtGui import QIcon, QKeyEvent, QPixmap
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
-    QTableView, QHeaderView, QPushButton, QLabel, QSystemTrayIcon,
-    QMenu, QAction, QMessageBox, QSizePolicy, QDesktopWidget
+    QApplication,
+    QDesktopWidget,
+    QHBoxLayout,
+    QHeaderView,
+    QLabel,
+    QMainWindow,
+    QMessageBox,
+    QPushButton,
+    QSystemTrayIcon,
+    QTableView,
+    QVBoxLayout,
+    QWidget,
 )
-from PyQt5.QtCore import Qt, QTimer, QModelIndex
-from PyQt5.QtGui import QFont, QIcon, QPixmap, QKeyEvent
 
-from .data_manager import DataManager
+from .app_metadata import get_project_version
+from .attendance_stats import calculate_month_attendance_stats
 from .calendar_core import CalendarCore
-from .calendar_model import CalendarModel
 from .calendar_delegate import CalendarDelegate
+from .calendar_model import CalendarModel
+from .data_manager import DataManager
 from .dialogs import (
     AttendanceStatsDialog,
     DateNoteDialog,
@@ -31,6 +42,8 @@ from .dialogs import (
     YearMonthDialog,
 )
 from .theme import ThemeManager
+from .tray_controller import TrayController
+from .window_events import should_minimize_to_tray
 
 
 def _runtime_root() -> str:
@@ -76,6 +89,27 @@ _setup_logging()
 logger = logging.getLogger(__name__)
 
 
+@dataclass
+class CalendarAppDependencies:
+    """CalendarApp dependency configuration.
+
+    Defaults preserve the current production wiring, while tests or future
+    storage/theme implementations can provide substitutes.
+    """
+
+    data_manager: Optional[DataManager] = None
+    calendar_core: Optional[CalendarCore] = None
+    theme_manager: Optional[ThemeManager] = None
+    calendar_model_factory: Callable[
+        [CalendarCore, DataManager, QMainWindow],
+        CalendarModel,
+    ] = CalendarModel
+    calendar_delegate_factory: Callable[
+        [QMainWindow],
+        CalendarDelegate,
+    ] = CalendarDelegate
+
+
 class CalendarApp(QMainWindow):
     """日历应用主窗口类
 
@@ -83,11 +117,16 @@ class CalendarApp(QMainWindow):
     使用 QTableView + CalendarModel 实现现代化日历界面。
     """
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        dependencies: Optional[CalendarAppDependencies] = None,
+    ) -> None:
         """初始化日历应用"""
         super().__init__()
 
         logger.info("正在初始化日历应用...")
+
+        self.dependencies = dependencies or CalendarAppDependencies()
 
         self.base_dir = self._get_base_dir()
         self.resource_dir = self._get_resource_dir()
@@ -97,12 +136,11 @@ class CalendarApp(QMainWindow):
 
         os.makedirs(self.data_dir, exist_ok=True)
 
-        notes_path = os.path.join(self.data_dir, "NoteCal_notes.json")
-        settings_path = os.path.join(self.data_dir, "NoteCal_settings.json")
-        self.data_manager = DataManager(notes_path, settings_path)
-
-        self.calendar_core = CalendarCore()
-        self.theme_manager = ThemeManager.get_instance()
+        self.data_manager = self.dependencies.data_manager or self._create_data_manager()
+        self.calendar_core = self.dependencies.calendar_core or CalendarCore()
+        self.theme_manager = (
+            self.dependencies.theme_manager or ThemeManager.get_instance()
+        )
         self.selection_mode = False
         self.selected_dates: set[str] = set()
 
@@ -117,7 +155,8 @@ class CalendarApp(QMainWindow):
         self.current_month = today.month
 
         self._init_ui()
-        self._init_tray()
+        self.tray_controller = self._create_tray_controller()
+        self.tray_icon = self.tray_controller.initialize()
 
         self.calendar_model.set_date(self.current_year, self.current_month)
         self._update_calendar()
@@ -127,6 +166,12 @@ class CalendarApp(QMainWindow):
         self.timer.start(60000)
 
         logger.info("日历应用初始化完成")
+
+    def _create_data_manager(self) -> DataManager:
+        """Create the default JSON-backed data manager."""
+        notes_path = os.path.join(self.data_dir, "NoteCal_notes.json")
+        settings_path = os.path.join(self.data_dir, "NoteCal_settings.json")
+        return DataManager(notes_path, settings_path)
 
     def _get_base_dir(self) -> str:
         """获取基础目录"""
@@ -255,14 +300,14 @@ class CalendarApp(QMainWindow):
         """创建日历视图 (QTableView)"""
         self.calendar_view = QTableView()
 
-        self.calendar_model = CalendarModel(
+        self.calendar_model = self.dependencies.calendar_model_factory(
             self.calendar_core,
             self.data_manager,
             self
         )
         self.calendar_view.setModel(self.calendar_model)
 
-        self.calendar_delegate = CalendarDelegate(self)
+        self.calendar_delegate = self.dependencies.calendar_delegate_factory(self)
         self.calendar_view.setItemDelegate(self.calendar_delegate)
 
         self.calendar_view.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -338,35 +383,18 @@ class CalendarApp(QMainWindow):
 
     def _init_tray(self) -> None:
         """初始化系统托盘"""
-        if not QSystemTrayIcon.isSystemTrayAvailable():
-            logger.warning("系统托盘不可用")
-            return
+        self.tray_controller.initialize()
 
-        self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(self._get_icon())
-        self.tray_icon.setToolTip("日历笔记")
-
-        tray_menu = QMenu()
-
-        show_action = QAction("显示", self)
-        show_action.triggered.connect(self.show)
-        show_action.setShortcut("Ctrl+Shift+N")
-        tray_menu.addAction(show_action)
-
-        theme_action = QAction("切换主题", self)
-        theme_action.triggered.connect(self._toggle_theme)
-        tray_menu.addAction(theme_action)
-
-        tray_menu.addSeparator()
-
-        quit_action = QAction("退出", self)
-        quit_action.triggered.connect(self._quit_application)
-        tray_menu.addAction(quit_action)
-
-        self.tray_icon.setContextMenu(tray_menu)
-        self.tray_icon.activated.connect(self._tray_icon_activated)
-
-        self.tray_icon.show()
+    def _create_tray_controller(self) -> TrayController:
+        """Create the system tray controller."""
+        return TrayController(
+            parent=self,
+            icon_provider=self._get_icon,
+            show_window=self.show,
+            toggle_theme=self._toggle_theme,
+            quit_application=self._quit_application,
+            toggle_window_visibility=self._toggle_window_visibility,
+        )
 
     def _update_calendar(self) -> None:
         """更新日历显示"""
@@ -421,35 +449,20 @@ class CalendarApp(QMainWindow):
 
     def _show_attendance_stats(self) -> None:
         """显示当前月份的出勤统计"""
-        _, days_in_month = cal_module.monthrange(self.current_year, self.current_month)
-        attendance_days = 0
-        overtime_days = 0
-        overtime_dates: list[str] = []
-        business_trip_days = 0
-
-        for day in range(1, days_in_month + 1):
-            date_str = self.calendar_core.get_date_string(
-                self.current_year,
-                self.current_month,
-                day
-            )
-            content, is_overtime, is_business_trip = self.data_manager.get_note(date_str)
-
-            if content:
-                attendance_days += 1
-            if is_overtime:
-                overtime_days += 1
-                overtime_dates.append(f"{self.current_month:02d}-{day:02d}")
-            if is_business_trip:
-                business_trip_days += 1
+        stats = calculate_month_attendance_stats(
+            self.current_year,
+            self.current_month,
+            self.data_manager,
+            self.calendar_core,
+        )
 
         dialog = AttendanceStatsDialog(
             self.current_year,
             self.current_month,
-            attendance_days,
-            overtime_days,
-            overtime_dates,
-            business_trip_days,
+            stats.attendance_days,
+            stats.overtime_days,
+            stats.overtime_dates,
+            stats.business_trip_days,
             self
         )
         self.theme_manager.apply_to_widget(dialog)
@@ -566,11 +579,15 @@ class CalendarApp(QMainWindow):
     def _tray_icon_activated(self, reason: QSystemTrayIcon.ActivationReason) -> None:
         """处理托盘图标激活事件"""
         if reason == QSystemTrayIcon.DoubleClick:
-            if self.isVisible():
-                self.hide()
-            else:
-                self.show()
-                self.activateWindow()
+            self._toggle_window_visibility()
+
+    def _toggle_window_visibility(self) -> None:
+        """Toggle the main window visibility from tray actions."""
+        if self.isVisible():
+            self.hide()
+        else:
+            self.show()
+            self.activateWindow()
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
         """处理键盘事件"""
@@ -593,7 +610,7 @@ class CalendarApp(QMainWindow):
 
     def closeEvent(self, event) -> None:
         """处理窗口关闭事件"""
-        if self.data_manager.get_setting("minimize_to_tray", True) and self.tray_icon.isVisible():
+        if should_minimize_to_tray(self.data_manager, self.tray_controller):
             msg_box = QMessageBox(self)
             msg_box.setWindowTitle("系统托盘")
             msg_box.setText("程序将继续在系统托盘中运行。\n要退出程序，请从托盘菜单中选择'退出'。")
@@ -618,8 +635,7 @@ class CalendarApp(QMainWindow):
         self.data_manager.save_notes()
         self.data_manager.save_settings()
 
-        if hasattr(self, "tray_icon"):
-            self.tray_icon.hide()
+        self.tray_controller.hide()
 
         QApplication.quit()
 
@@ -633,7 +649,7 @@ def main() -> None:
         app.setApplicationName("日历笔记")
         app.setApplicationDisplayName("日历笔记")
         app.setOrganizationName("NoteCal")
-        app.setApplicationVersion("0.5.0")
+        app.setApplicationVersion(get_project_version())
 
         calendar_app = CalendarApp()
         calendar_app.show()
