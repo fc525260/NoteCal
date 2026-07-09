@@ -17,8 +17,6 @@ NoteCal 是一个 Windows 日历笔记工具，用于每日工作记录、出勤
 
 ## 下载
 
-GitHub Releases 会由 GitHub Actions 根据版本 tag 自动构建。
-
 `v0.7.0` 的发行版文件为：
 
 ```text
@@ -55,8 +53,6 @@ user\NoteCal_settings.json
 ```powershell
 .\scripts\accept-winui-ui.ps1
 ```
-
-推送 `v0.7.0` 这样的版本 tag 后，GitHub release workflow 会运行 Python 检查、Core 测试、构建 WinUI portable 包，并把 zip 发布到 GitHub Releases。本次 release 说明会列出主要更新：WinUI 3 dashboard、请假状态、月历内工作总结弹窗、真实农历文本，以及 `datas\` / `user\` portable 层级。
 
 ## 开发
 

@@ -17,8 +17,6 @@ Version `0.7.0` adds a native WinUI 3 rebuild while keeping the original Python/
 
 ## Download
 
-GitHub Releases are built from version tags by GitHub Actions.
-
 The `v0.7.0` release asset is:
 
 ```text
@@ -55,8 +53,6 @@ Local WinUI UI acceptance test:
 ```powershell
 .\scripts\accept-winui-ui.ps1
 ```
-
-The GitHub release workflow runs when a version tag such as `v0.7.0` is pushed. It performs Python checks, Core tests, builds the WinUI portable package, and publishes the zip to GitHub Releases. The release notes describe the main updates: WinUI 3 dashboard, leave tracking, calendar-screen work summary dialog, real lunar text, and the portable `datas\` / `user\` layout.
 
 ## Development
 
