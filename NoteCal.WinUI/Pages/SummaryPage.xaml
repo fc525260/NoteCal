@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="NoteCal_WinUI.Pages.SummaryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Padding="24" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Spacing="4">
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="工作总结" />
+            <TextBlock
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="选择多个日期后，汇总每天笔记内容，生成可复制的工作总结。" />
+        </StackPanel>
+
+        <InfoBar
+            Grid.Row="1"
+            IsOpen="True"
+            IsClosable="False"
+            Severity="Informational"
+            Title="状态"
+            Message="{Binding EmptyMessage}" />
+
+        <Border
+            Grid.Row="2"
+            Padding="18"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <Grid RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    FontSize="18"
+                    FontWeight="SemiBold"
+                    Text="总结预览" />
+                <Grid Grid.Row="1" RowSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{Binding SelectedDatesText}"
+                        TextWrapping="Wrap" />
+                    <TextBox
+                        AutomationProperties.AutomationId="SummaryTextBox"
+                        Grid.Row="1"
+                        AcceptsReturn="True"
+                        IsReadOnly="True"
+                        PlaceholderText="选择日期后将在这里生成总结..."
+                        Text="{Binding SummaryText}"
+                        TextWrapping="Wrap" />
+                </Grid>
+                <StackPanel
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="8">
+                    <Button
+                        AutomationProperties.AutomationId="SummaryCopyButton"
+                        Click="Copy_Click"
+                        Content="复制" />
+                    <Button
+                        AutomationProperties.AutomationId="SummaryClearSelectionButton"
+                        Click="ClearSelection_Click"
+                        Content="清空选择" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

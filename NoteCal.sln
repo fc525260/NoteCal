@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteCal.Core", "NoteCal.Core\NoteCal.Core.csproj", "{D6F778E7-2CFE-4AE9-99A7-EFADCEF2FFFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteCal.Core.Tests", "NoteCal.Core.Tests\NoteCal.Core.Tests.csproj", "{FBE2870F-90DA-4C90-8754-AE9B196F8042}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteCal.WinUI", "NoteCal.WinUI\NoteCal.WinUI.csproj", "{6CB98906-772B-46BF-8BCA-62865EE26B3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteCal.Launcher", "NoteCal.Launcher\NoteCal.Launcher.csproj", "{58488B0F-4686-4958-8EC0-139C3A8337BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6F778E7-2CFE-4AE9-99A7-EFADCEF2FFFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6F778E7-2CFE-4AE9-99A7-EFADCEF2FFFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6F778E7-2CFE-4AE9-99A7-EFADCEF2FFFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6F778E7-2CFE-4AE9-99A7-EFADCEF2FFFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE2870F-90DA-4C90-8754-AE9B196F8042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE2870F-90DA-4C90-8754-AE9B196F8042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE2870F-90DA-4C90-8754-AE9B196F8042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE2870F-90DA-4C90-8754-AE9B196F8042}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CB98906-772B-46BF-8BCA-62865EE26B3D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6CB98906-772B-46BF-8BCA-62865EE26B3D}.Debug|Any CPU.Build.0 = Debug|x86
+		{6CB98906-772B-46BF-8BCA-62865EE26B3D}.Release|Any CPU.ActiveCfg = Release|x86
+		{6CB98906-772B-46BF-8BCA-62865EE26B3D}.Release|Any CPU.Build.0 = Release|x86
+		{58488B0F-4686-4958-8EC0-139C3A8337BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58488B0F-4686-4958-8EC0-139C3A8337BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58488B0F-4686-4958-8EC0-139C3A8337BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58488B0F-4686-4958-8EC0-139C3A8337BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

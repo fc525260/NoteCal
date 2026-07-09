@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="NoteCal_WinUI.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:NoteCal_WinUI.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style x:Key="StatusDotStyle" TargetType="Ellipse">
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Height" Value="8" />
+            <Setter Property="Margin" Value="0,0,4,0" />
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+    <Grid MinWidth="900" MinHeight="620" Padding="20" RowSpacing="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="{Binding MonthTitle}" />
+                <TextBlock
+                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                    Text="{Binding SummarySelectionStatus}" />
+            </StackPanel>
+
+            <CommandBar
+                Grid.Column="1"
+                DefaultLabelPosition="Right"
+                IsOpen="False">
+                <AppBarButton
+                    AutomationProperties.AutomationId="HomePreviousMonthButton"
+                    Click="PreviousMonth_Click"
+                    Icon="Back"
+                    Label="上月" />
+                <AppBarButton
+                    AutomationProperties.AutomationId="HomeTodayButton"
+                    Click="Today_Click"
+                    Icon="CalendarDay"
+                    Label="今天" />
+                <AppBarButton
+                    AutomationProperties.AutomationId="HomeNextMonthButton"
+                    Click="NextMonth_Click"
+                    Icon="Forward"
+                    Label="下月" />
+                <AppBarButton
+                    AutomationProperties.AutomationId="HomeToggleSummarySelectionButton"
+                    Click="ToggleSummarySelection_Click"
+                    Icon="SelectAll"
+                    Label="{Binding SummarySelectionButtonLabel}" />
+                <AppBarButton
+                    AutomationProperties.AutomationId="HomeShowSummaryButton"
+                    Click="ShowSummary_Click"
+                    Icon="Paste"
+                    Label="生成总结" />
+            </CommandBar>
+        </Grid>
+
+        <Grid Grid.Row="1" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                Padding="14,12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel>
+                    <TextBlock
+                        FontSize="26"
+                        FontWeight="SemiBold"
+                        Text="{Binding AttendanceDays}" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="出勤天" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                Grid.Column="1"
+                Padding="14,12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel>
+                    <TextBlock
+                        FontSize="26"
+                        FontWeight="SemiBold"
+                        Text="{Binding OvertimeDays}" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="加班天" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                Grid.Column="2"
+                Padding="14,12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel>
+                    <TextBlock
+                        FontSize="26"
+                        FontWeight="SemiBold"
+                        Text="{Binding BusinessTripDays}" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="出差天" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                Grid.Column="3"
+                Padding="14,12"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <StackPanel>
+                    <TextBlock
+                        FontSize="26"
+                        FontWeight="SemiBold"
+                        Text="{Binding LeaveDays}" />
+                    <TextBlock
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="请假天" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" ColumnSpacing="14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+
+            <Grid RowSpacing="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid ColumnSpacing="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock HorizontalAlignment="Center" Text="一" />
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="二" />
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Center" Text="三" />
+                    <TextBlock Grid.Column="3" HorizontalAlignment="Center" Text="四" />
+                    <TextBlock Grid.Column="4" HorizontalAlignment="Center" Text="五" />
+                    <TextBlock Grid.Column="5" HorizontalAlignment="Center" Text="六" />
+                    <TextBlock Grid.Column="6" HorizontalAlignment="Center" Text="日" />
+                </Grid>
+
+                <GridView
+                    x:Name="CalendarGrid"
+                    AutomationProperties.AutomationId="HomeCalendarGrid"
+                    Grid.Row="1"
+                    IsItemClickEnabled="True"
+                    ItemClick="CalendarGrid_ItemClick"
+                    ItemsSource="{Binding Days}"
+                    SelectionMode="None">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid
+                                MaximumRowsOrColumns="7"
+                                Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="GridViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Margin" Value="0" />
+                            <Setter Property="MinHeight" Value="78" />
+                            <Setter Property="MinWidth" Value="86" />
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                MinWidth="82"
+                                MinHeight="72"
+                                Padding="8"
+                                Background="{Binding CellBackground}"
+                                BorderBrush="{Binding CellBorderBrush}"
+                                BorderThickness="{Binding CellBorderThickness}"
+                                CornerRadius="8"
+                                Visibility="{Binding CellVisibility}">
+                                <Grid>
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="18"
+                                            FontWeight="SemiBold"
+                                            Foreground="{Binding PrimaryTextBrush}"
+                                            Text="{Binding DayText}" />
+                                        <TextBlock
+                                            FontSize="11"
+                                            Foreground="{Binding SecondaryTextBrush}"
+                                            Text="{Binding LunarText}" />
+                                    </StackPanel>
+                                    <StackPanel
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Orientation="Horizontal">
+                                        <Ellipse
+                                            Fill="#D13438"
+                                            Style="{StaticResource StatusDotStyle}"
+                                            ToolTipService.ToolTip="笔记"
+                                            Visibility="{Binding NoteDotVisibility}" />
+                                        <Ellipse
+                                            Fill="#107C10"
+                                            Style="{StaticResource StatusDotStyle}"
+                                            ToolTipService.ToolTip="加班"
+                                            Visibility="{Binding OvertimeDotVisibility}" />
+                                        <Ellipse
+                                            Fill="#CA5010"
+                                            Style="{StaticResource StatusDotStyle}"
+                                            ToolTipService.ToolTip="出差"
+                                            Visibility="{Binding BusinessTripDotVisibility}" />
+                                        <Ellipse
+                                            Stroke="{ThemeResource TextFillColorSecondaryBrush}"
+                                            StrokeThickness="1"
+                                            Fill="#F2C811"
+                                            Style="{StaticResource StatusDotStyle}"
+                                            ToolTipService.ToolTip="请假"
+                                            Visibility="{Binding LeaveDotVisibility}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+
+                <StackPanel
+                    Grid.Row="2"
+                    Margin="0,6,0,0"
+                    Orientation="Horizontal"
+                    Spacing="14">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <Ellipse Width="8" Height="8" Fill="#D13438" />
+                        <TextBlock Text="笔记" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <Ellipse Width="8" Height="8" Fill="#107C10" />
+                        <TextBlock Text="加班" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <Ellipse Width="8" Height="8" Fill="#CA5010" />
+                        <TextBlock Text="出差" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <Ellipse
+                            Width="8"
+                            Height="8"
+                            Stroke="{ThemeResource TextFillColorSecondaryBrush}"
+                            StrokeThickness="1"
+                            Fill="#F2C811" />
+                        <TextBlock Text="请假" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <Border
+                Grid.Column="1"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid RowSpacing="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel>
+                        <TextBlock
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            Text="{Binding SelectedDateTitle}" />
+                        <TextBlock
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{Binding SelectedDateSubtitle}" />
+                        <TextBlock
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{Binding UnsavedStatus}" />
+                    </StackPanel>
+
+                    <TextBox
+                        AutomationProperties.AutomationId="HomeNoteTextBox"
+                        Grid.Row="1"
+                        AcceptsReturn="True"
+                        Header="笔记"
+                        PlaceholderText="记录当天工作内容..."
+                        Text="{Binding SelectedContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextWrapping="Wrap" />
+
+                    <Grid Grid.Row="2" ColumnSpacing="8" RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <CheckBox
+                            AutomationProperties.AutomationId="HomeOvertimeCheckBox"
+                            Content="加班"
+                            IsChecked="{Binding SelectedOvertime, Mode=TwoWay}" />
+                        <CheckBox
+                            AutomationProperties.AutomationId="HomeBusinessTripCheckBox"
+                            Grid.Column="1"
+                            Content="出差"
+                            IsChecked="{Binding SelectedBusinessTrip, Mode=TwoWay}" />
+                        <CheckBox
+                            AutomationProperties.AutomationId="HomeLeaveCheckBox"
+                            Grid.Row="1"
+                            Content="请假"
+                            IsChecked="{Binding SelectedLeave, Mode=TwoWay}" />
+                    </Grid>
+
+                    <StackPanel
+                        Grid.Row="3"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button
+                            AutomationProperties.AutomationId="HomeClearButton"
+                            Click="ClearSelected_Click"
+                            Content="清空" />
+                        <Button
+                            AutomationProperties.AutomationId="HomeSaveButton"
+                            Click="SaveSelected_Click"
+                            Content="{Binding SaveButtonLabel}"
+                            Style="{StaticResource AccentButtonStyle}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+    </ScrollViewer>
+</Page>

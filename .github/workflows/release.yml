@@ -1,0 +1,70 @@
+name: Build Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-winui-release:
+    name: Build WinUI portable release
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run Python checks
+        run: |
+          python -m ruff check src tests
+          python -m pytest
+          python -m compileall -q run.py src tests
+
+      - name: Run core tests
+        run: dotnet run --project NoteCal.Core.Tests\NoteCal.Core.Tests.csproj
+
+      - name: Build portable WinUI release
+        shell: pwsh
+        run: .\scripts\build-winui-release.ps1 -Version 0.7.0
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/NoteCal-0.7.0-winui3-win-x64-portable.zip
+          name: NoteCal 0.7.0
+          body: |
+            ## NoteCal 0.7.0
+
+            This release is rebuilt by GitHub Actions from the `v0.7.0` tag.
+
+            ### Major updates
+            - Added the WinUI 3 dashboard application alongside the existing PyQt version.
+            - Added leave tracking with a yellow calendar dot; leave days do not count as attendance.
+            - Added calendar-screen work summary generation through a dialog, so users do not need to leave the month calendar workflow.
+            - Added real lunar date text in the WinUI calendar.
+            - Added a portable release layout: root `NoteCal.exe`, runtime files in `datas\`, user JSON files in `user\`.
+            - Added automated release smoke and UI acceptance scripts for local validation.
+
+            ### Portable layout
+            ```text
+            NoteCal.exe
+            datas\runtime\...
+            user\NoteCal_notes.json
+            user\NoteCal_settings.json
+            ```

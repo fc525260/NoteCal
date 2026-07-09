@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "NoteCal.WinUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "NoteCal.WinUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

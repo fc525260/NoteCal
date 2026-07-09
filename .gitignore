@@ -38,8 +38,18 @@ Thumbs.db
 # Logs
 *.log
 
+# .NET build outputs
+**/bin/
+**/obj/
+
 # Notes data (用户数据，不提交)
 notes/
 data/
 *.db
 *.sqlite
+
+# Local-only handoff/audit docs (永不推送)
+private_docs/
+
+# Local brainstorming prototypes
+.superpowers/

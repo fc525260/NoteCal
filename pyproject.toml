@@ -1,6 +1,6 @@
 [project]
 name = "notecal"
-version = "0.6.0"
+version = "0.7.0"
 authors = [
   { name = "fc525260", email = "" },
 ]
