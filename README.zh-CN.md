@@ -121,3 +121,8 @@ user\NoteCal_settings.json
 ## 许可证
 
 MIT
+
+## 语言
+
+- [English](./README.md)
+- [简体中文](./README.zh-CN.md)

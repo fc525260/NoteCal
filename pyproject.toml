@@ -4,7 +4,7 @@ version = "0.7.0"
 authors = [
   { name = "fc525260", email = "" },
 ]
-description = "A powerful note and calendar integration application with Win11 Fluent style"
+description = "A Windows calendar note app for daily work logs, attendance status, lunar dates, and selected-date work summaries"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
