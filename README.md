@@ -1,5 +1,7 @@
 # NoteCal
 
+[English](./README.md) | [简体中文](./README.zh-CN.md)
+
 NoteCal is a Windows calendar note app for daily work logs, attendance status, lunar dates, and selected-date work summaries.
 
 Version `0.7.0` adds a native WinUI 3 rebuild while keeping the original Python/PyQt app in the repository as a behavior reference.
@@ -36,19 +38,41 @@ Run `NoteCal.exe` from the extracted folder. Runtime dependencies stay under `da
 
 ## Build And Release
 
-Local release build:
+### English
+
+Build the local WinUI portable release:
 
 ```powershell
 .\scripts\build-winui-release.ps1 -Version 0.7.0
 ```
 
-Local release smoke test:
+Run the local release smoke test:
 
 ```powershell
 .\scripts\smoke-winui-release.ps1
 ```
 
-Local WinUI UI acceptance test:
+Run the local WinUI UI acceptance test:
+
+```powershell
+.\scripts\accept-winui-ui.ps1
+```
+
+### 中文
+
+构建本地 WinUI portable 发行版：
+
+```powershell
+.\scripts\build-winui-release.ps1 -Version 0.7.0
+```
+
+运行本地发行版冒烟测试：
+
+```powershell
+.\scripts\smoke-winui-release.ps1
+```
+
+运行本地 WinUI UI 自动验收：
 
 ```powershell
 .\scripts\accept-winui-ui.ps1
@@ -117,8 +141,3 @@ Do not commit runtime data, build output, local logs, or private handoff/audit d
 ## License
 
 MIT
-
-## Language
-
-- [English](./README.md)
-- [简体中文](./README.zh-CN.md)

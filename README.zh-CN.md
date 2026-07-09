@@ -1,5 +1,7 @@
 # NoteCal
 
+[English](./README.md) | [简体中文](./README.zh-CN.md)
+
 NoteCal 是一个 Windows 日历笔记工具，用于每日工作记录、出勤状态、农历日期和多日期工作总结。
 
 `0.7.0` 版本新增原生 WinUI 3 重构版本，同时保留原 Python/PyQt 应用作为行为参考。
@@ -36,19 +38,41 @@ user\NoteCal_settings.json
 
 ## 构建与发行
 
-本地构建 release：
+### 中文
+
+构建本地 WinUI portable 发行版：
 
 ```powershell
 .\scripts\build-winui-release.ps1 -Version 0.7.0
 ```
 
-本地 release 冒烟测试：
+运行本地发行版冒烟测试：
 
 ```powershell
 .\scripts\smoke-winui-release.ps1
 ```
 
-本地 WinUI UI 自动验收：
+运行本地 WinUI UI 自动验收：
+
+```powershell
+.\scripts\accept-winui-ui.ps1
+```
+
+### English
+
+Build the local WinUI portable release:
+
+```powershell
+.\scripts\build-winui-release.ps1 -Version 0.7.0
+```
+
+Run the local release smoke test:
+
+```powershell
+.\scripts\smoke-winui-release.ps1
+```
+
+Run the local WinUI UI acceptance test:
 
 ```powershell
 .\scripts\accept-winui-ui.ps1
@@ -117,8 +141,3 @@ user\NoteCal_settings.json
 ## 许可证
 
 MIT
-
-## 语言
-
-- [English](./README.md)
-- [简体中文](./README.zh-CN.md)
