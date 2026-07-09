@@ -12,6 +12,9 @@ NoteCal is a native WinUI 3 Windows calendar note app for daily work logs, atten
 - Leave uses a yellow dot and does not count as attendance.
 - Work summaries open as a dialog from the calendar screen.
 - Real lunar date text in the calendar.
+- Title bar shows the current app version.
+- Optional minimize-to-tray behavior for minimize and close actions.
+- Restored NoteCal icon for the window, taskbar, tray, root launcher exe, and runtime exe.
 - Portable Windows release layout with a root `NoteCal.exe`, runtime files under `datas\`, and user data under `user\`.
 
 ## Download
