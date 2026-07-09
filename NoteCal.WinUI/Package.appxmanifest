@@ -11,12 +11,12 @@
   <Identity
     Name="E529D996-875C-49B1-823F-F02B68253BD4"
     Publisher="CN=AppPublisher"
-    Version="0.7.0.0" />
+    Version="0.7.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="E529D996-875C-49B1-823F-F02B68253BD4" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>NoteCal.WinUI</DisplayName>
+    <DisplayName>NoteCal</DisplayName>
     <PublisherDisplayName>AppPublisher</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -35,8 +35,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="NoteCal.WinUI"
-        Description="NoteCal.WinUI"
+        DisplayName="NoteCal"
+        Description="WinUI 3 calendar notes and daily work log tool"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">

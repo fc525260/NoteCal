@@ -110,7 +110,7 @@
                         IsOn="{Binding MinimizeToTray, Mode=TwoWay}" />
                     <TextBlock
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Text="当前保存偏好，托盘常驻会在后续发行中接入。"
+                        Text="启用后，点击最小化或关闭都会隐藏到系统托盘。"
                         TextWrapping="Wrap" />
                 </StackPanel>
             </Border>
@@ -128,8 +128,8 @@
                     FontSize="18"
                     FontWeight="SemiBold"
                     Text="数据文件" />
-                <TextBlock Text="笔记数据：data\NoteCal_notes.json" />
-                <TextBlock Text="设置数据：data\NoteCal_settings.json" />
+                <TextBlock Text="笔记数据：user\NoteCal_notes.json" />
+                <TextBlock Text="设置数据：user\NoteCal_settings.json" />
                 <TextBlock
                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                     Text="这些文件位于应用目录下，便于从旧版迁移和本地备份。"

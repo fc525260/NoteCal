@@ -23,7 +23,7 @@ public static class NativeMouse {
 "@
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$packageRoot = Join-Path $repoRoot "dist\NoteCal-0.7.0-winui3-win-x64-portable"
+$packageRoot = Join-Path $repoRoot "dist\NoteCal-0.7.2-winui3-win-x64-portable"
 $exe = Join-Path $packageRoot "NoteCal.exe"
 
 if (-not (Test-Path -LiteralPath $exe)) {
@@ -138,13 +138,13 @@ function Require-ByAutomationId {
 }
 
 function Find-NoteCalWindow {
-    $nameCondition = New-Object System.Windows.Automation.PropertyCondition(
-        [System.Windows.Automation.AutomationElement]::NameProperty,
-        "NoteCal")
     $desktop = [System.Windows.Automation.AutomationElement]::RootElement
-    $windows = $desktop.FindAll([System.Windows.Automation.TreeScope]::Children, $nameCondition)
+    $windows = $desktop.FindAll(
+        [System.Windows.Automation.TreeScope]::Children,
+        [System.Windows.Automation.Condition]::TrueCondition)
     foreach ($candidate in $windows) {
-        if ($null -ne (Find-ByAutomationId -Root $candidate -AutomationId "MainNavigation")) {
+        if ($candidate.Current.Name -like "NoteCal*" -and
+            $null -ne (Find-ByAutomationId -Root $candidate -AutomationId "MainNavigation")) {
             return $candidate
         }
     }

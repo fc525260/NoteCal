@@ -17,7 +17,7 @@
     </Page.Resources>
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-    <Grid MinWidth="900" MinHeight="620" Padding="20" RowSpacing="14">
+    <Grid MinWidth="840" MinHeight="560" Padding="12" RowSpacing="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -71,7 +71,7 @@
             </CommandBar>
         </Grid>
 
-        <Grid Grid.Row="1" ColumnSpacing="10">
+        <Grid Grid.Row="1" ColumnSpacing="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -80,14 +80,14 @@
             </Grid.ColumnDefinitions>
 
             <Border
-                Padding="14,12"
+                Padding="12,8"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
                 <StackPanel>
                     <TextBlock
-                        FontSize="26"
+                        FontSize="22"
                         FontWeight="SemiBold"
                         Text="{Binding AttendanceDays}" />
                     <TextBlock
@@ -98,14 +98,14 @@
 
             <Border
                 Grid.Column="1"
-                Padding="14,12"
+                Padding="12,8"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
                 <StackPanel>
                     <TextBlock
-                        FontSize="26"
+                        FontSize="22"
                         FontWeight="SemiBold"
                         Text="{Binding OvertimeDays}" />
                     <TextBlock
@@ -116,14 +116,14 @@
 
             <Border
                 Grid.Column="2"
-                Padding="14,12"
+                Padding="12,8"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
                 <StackPanel>
                     <TextBlock
-                        FontSize="26"
+                        FontSize="22"
                         FontWeight="SemiBold"
                         Text="{Binding BusinessTripDays}" />
                     <TextBlock
@@ -134,14 +134,14 @@
 
             <Border
                 Grid.Column="3"
-                Padding="14,12"
+                Padding="12,8"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
                 <StackPanel>
                     <TextBlock
-                        FontSize="26"
+                        FontSize="22"
                         FontWeight="SemiBold"
                         Text="{Binding LeaveDays}" />
                     <TextBlock
@@ -151,10 +151,10 @@
             </Border>
         </Grid>
 
-        <Grid Grid.Row="2" ColumnSpacing="14">
+        <Grid Grid.Row="2" ColumnSpacing="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="280" />
             </Grid.ColumnDefinitions>
 
             <Grid RowSpacing="6">
@@ -202,16 +202,16 @@
                         <Style TargetType="GridViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             <Setter Property="Margin" Value="0" />
-                            <Setter Property="MinHeight" Value="78" />
-                            <Setter Property="MinWidth" Value="86" />
+                            <Setter Property="MinHeight" Value="68" />
+                            <Setter Property="MinWidth" Value="76" />
                         </Style>
                     </GridView.ItemContainerStyle>
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <Border
-                                MinWidth="82"
-                                MinHeight="72"
-                                Padding="8"
+                                MinWidth="72"
+                                MinHeight="62"
+                                Padding="6"
                                 Background="{Binding CellBackground}"
                                 BorderBrush="{Binding CellBorderBrush}"
                                 BorderThickness="{Binding CellBorderThickness}"
@@ -220,7 +220,7 @@
                                 <Grid>
                                     <StackPanel>
                                         <TextBlock
-                                            FontSize="18"
+                                            FontSize="16"
                                             FontWeight="SemiBold"
                                             Foreground="{Binding PrimaryTextBrush}"
                                             Text="{Binding DayText}" />
@@ -293,12 +293,12 @@
 
             <Border
                 Grid.Column="1"
-                Padding="16"
+                Padding="12"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="8">
-                <Grid RowSpacing="12">
+                <Grid RowSpacing="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -308,7 +308,7 @@
 
                     <StackPanel>
                         <TextBlock
-                            FontSize="20"
+                            FontSize="18"
                             FontWeight="SemiBold"
                             Text="{Binding SelectedDateTitle}" />
                         <TextBlock
@@ -324,16 +324,14 @@
                         Grid.Row="1"
                         AcceptsReturn="True"
                         Header="笔记"
+                        MinHeight="128"
                         PlaceholderText="记录当天工作内容..."
                         Text="{Binding SelectedContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         TextWrapping="Wrap" />
 
-                    <Grid Grid.Row="2" ColumnSpacing="8" RowSpacing="8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                    <Grid Grid.Row="2" ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
@@ -348,7 +346,7 @@
                             IsChecked="{Binding SelectedBusinessTrip, Mode=TwoWay}" />
                         <CheckBox
                             AutomationProperties.AutomationId="HomeLeaveCheckBox"
-                            Grid.Row="1"
+                            Grid.Column="2"
                             Content="请假"
                             IsChecked="{Binding SelectedLeave, Mode=TwoWay}" />
                     </Grid>

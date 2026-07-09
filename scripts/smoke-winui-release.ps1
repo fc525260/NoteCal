@@ -8,9 +8,9 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 $winuiProject = Join-Path $repoRoot "NoteCal.WinUI\NoteCal.WinUI.csproj"
 $launcherProject = Join-Path $repoRoot "NoteCal.Launcher\NoteCal.Launcher.csproj"
 $winuiPublishDir = Join-Path $repoRoot "NoteCal.WinUI\bin\Release\self-contained\win-x64"
-$packageRoot = Join-Path $repoRoot "dist\NoteCal-0.7.0-winui3-win-x64-portable"
+$packageRoot = Join-Path $repoRoot "dist\NoteCal-0.7.2-winui3-win-x64-portable"
 $runtimeDir = Join-Path $packageRoot "datas\runtime"
-$zipPath = Join-Path $repoRoot "dist\NoteCal-0.7.0-winui3-win-x64-portable.zip"
+$zipPath = Join-Path $repoRoot "dist\NoteCal-0.7.2-winui3-win-x64-portable.zip"
 
 function Invoke-Checked {
     param([string[]]$Command)

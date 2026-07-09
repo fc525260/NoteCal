@@ -27,31 +27,39 @@ jobs:
 
       - name: Build portable WinUI release
         shell: pwsh
-        run: .\scripts\build-winui-release.ps1 -Version 0.7.0
+        run: .\scripts\build-winui-release.ps1 -Version 0.7.2
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/NoteCal-0.7.0-winui3-win-x64-portable.zip
-          name: NoteCal 0.7.0
+          files: dist/NoteCal-0.7.2-winui3-win-x64-portable.zip
+          name: NoteCal 0.7.2
           body: |
-            ## NoteCal 0.7.0
+            ## NoteCal 0.7.2
 
             ### Major updates
-            - WinUI 3 is now the only maintained application version in the repository.
-            - Added leave tracking with a yellow calendar dot; leave days do not count as attendance.
-            - Added calendar-screen work summary generation through a dialog, so users do not need to leave the month calendar workflow.
-            - Added real lunar date text in the WinUI calendar.
-            - Added a portable release layout: root `NoteCal.exe`, runtime files in `datas\`, user JSON files in `user\`.
-            - Added automated release smoke and UI acceptance scripts for local validation.
+            - Reduced the left navigation pane and dashboard spacing so the month calendar sits closer to the navigation area.
+            - Adjusted the home dashboard to fit the save, clear, and status legend controls in the initial window without manual scrolling.
+            - Changed the overtime, business trip, and leave checkboxes to a single row.
+            - Added the app version to the title bar: `NoteCal 0.7.2`.
+            - Fixed title bar button contrast in the light theme.
+            - Implemented minimize-to-tray behavior for both minimize and close actions, with tray restore and an Open / Exit tray menu.
+            - Restored the original NoteCal icon and applied it to the window, taskbar, tray, root launcher exe, and runtime exe.
+            - Ensured `Assets\AppIcon.ico` is included in the portable runtime folder so taskbar icons render correctly.
+            - Corrected settings page data path text to `user\NoteCal_notes.json` and `user\NoteCal_settings.json`.
+            - Kept the portable release layout: root `NoteCal.exe`, runtime files in `datas\`, user JSON files in `user\`.
 
             ### 主要更新
-            - 仓库现在只维护 WinUI 3 应用版本。
-            - 新增请假状态，月历使用黄色圆点显示；请假日期不计入出勤天数。
-            - 工作总结改为在月历界面通过弹窗生成，减少跨页面操作。
-            - WinUI 月历显示真实农历文本。
-            - portable 发行版采用根目录 `NoteCal.exe`、运行文件 `datas\`、用户 JSON 文件 `user\` 的结构。
-            - 新增本地发行版冒烟测试和 WinUI UI 自动验收脚本。
+            - 缩小左侧导航栏和 dashboard 间距，让月历更靠近左侧导航区域。
+            - 调整首页布局，初始窗口中即可看到清空、保存和状态圆点图例，不需要手动下滑。
+            - 将加班、出差、请假复选项改为同一行。
+            - 标题栏新增版本显示：`NoteCal 0.7.2`。
+            - 修复浅色主题下标题栏最小化、最大化、关闭按钮对比度不足的问题。
+            - 实现最小化到托盘：点击最小化或关闭都会隐藏到托盘，并支持托盘双击恢复和“打开 / 退出”菜单。
+            - 恢复原 NoteCal 图标，并应用到窗口、任务栏、托盘、根目录启动 exe 和运行 exe。
+            - 确保 `Assets\AppIcon.ico` 被包含到 portable 运行目录，修复任务栏图标不显示的问题。
+            - 修正设置页数据路径说明为 `user\NoteCal_notes.json` 和 `user\NoteCal_settings.json`。
+            - 继续保持 portable 发行版结构：根目录 `NoteCal.exe`、运行文件 `datas\`、用户 JSON 文件 `user\`。
 
             ### Portable layout
             ```text
@@ -60,7 +68,6 @@ jobs:
             user\NoteCal_notes.json
             user\NoteCal_settings.json
             ```
-
             ### Portable 层级
             ```text
             NoteCal.exe
