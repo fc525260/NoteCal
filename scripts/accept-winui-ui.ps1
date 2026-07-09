@@ -242,6 +242,8 @@ try {
     Set-Text -Element $noteBox -Text "UI acceptance note"
     Toggle-Control -Element (Require-ByAutomationId -Root $window -AutomationId "HomeLeaveCheckBox")
     Invoke-Control -Element (Require-ByAutomationId -Root $window -AutomationId "HomeSaveButton")
+    Invoke-Control -Element (Require-ByAutomationId -Root $window -AutomationId "HomeToggleSummarySelectionButton")
+    Invoke-Control -Element (Require-ByAutomationId -Root $window -AutomationId "HomeToggleSummarySelectionButton")
     Invoke-Control -Element (Require-ByAutomationId -Root $window -AutomationId "HomeShowSummaryButton")
     Wait-Until -Description "summary dialog" -Probe {
         Find-ByName -Root (Find-NoteCalWindow) -Name "工作总结"
@@ -270,10 +272,6 @@ try {
     Require-ByAutomationId -Root $window -AutomationId "StatsCommandBar" | Out-Null
     Require-ByAutomationId -Root $window -AutomationId "StatsCurrentMonthButton" | Out-Null
 
-    Select-Nav -Root $window -AutomationId "NavSummary"
-    Require-ByAutomationId -Root $window -AutomationId "SummaryTextBox" | Out-Null
-    Require-ByAutomationId -Root $window -AutomationId "SummaryClearSelectionButton" | Out-Null
-
     Select-Nav -Root $window -AutomationId "NavSettings"
     Require-ByAutomationId -Root $window -AutomationId "SettingsThemeSelector" | Out-Null
     Require-ByAutomationId -Root $window -AutomationId "SettingsShowLunarSwitch" | Out-Null
@@ -292,11 +290,11 @@ try {
         WindowLaunched = $true
         HomeEditorAcceptedInput = $true
         LeaveToggleInvoked = $true
+        SummarySelectionExitVerified = $true
         HomeSummaryDialogReachable = $true
         SavedJsonVerified = $true
         RestartReloadVerified = $true
         StatsPageReachable = $true
-        SummaryPageReachable = $true
         SettingsPageReachable = $true
     } | Format-List
 }

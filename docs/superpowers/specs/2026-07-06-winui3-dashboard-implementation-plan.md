@@ -197,7 +197,7 @@ Validation:
 Current status:
 - SettingsPage is connected to real settings for theme, lunar display, and minimize-to-tray preference.
 - StatsPage reads real note JSON and provides month navigation.
-- SummaryPage remains available as a secondary page.
+- Work summary is available from the calendar screen as a dialog; the standalone work summary navigation entry has been removed.
 - The primary work summary workflow is now available directly on the calendar screen through a `工作总结` dialog opened from HomePage.
 
 ## Phase 8: Packaging And Acceptance

@@ -49,14 +49,6 @@
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem
-                    AutomationProperties.AutomationId="NavSummary"
-                    Content="工作总结"
-                    Tag="summary">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE8F1;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem
                     AutomationProperties.AutomationId="NavStats"
                     Content="出勤统计"
                     Tag="stats">

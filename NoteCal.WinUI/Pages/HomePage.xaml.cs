@@ -44,9 +44,9 @@ public sealed partial class HomePage : Page
         await _viewModel.NextMonthAsync();
     }
 
-    private void ToggleSummarySelection_Click(object sender, RoutedEventArgs e)
+    private async void ToggleSummarySelection_Click(object sender, RoutedEventArgs e)
     {
-        _viewModel.ToggleSummarySelectionMode();
+        await _viewModel.ToggleSummarySelectionModeAsync();
     }
 
     private async void SaveSelected_Click(object sender, RoutedEventArgs e)

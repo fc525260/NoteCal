@@ -166,7 +166,7 @@ public sealed class DashboardViewModel : INotifyPropertyChanged
         }
     }
 
-    public string SummarySelectionButtonLabel => IsSummarySelectionMode ? "完成选择" : "选择日期";
+    public string SummarySelectionButtonLabel => IsSummarySelectionMode ? "退出选择" : "选择日期";
 
     public string SummarySelectionStatus
     {
@@ -267,9 +267,19 @@ public sealed class DashboardViewModel : INotifyPropertyChanged
         RefreshCalendar();
     }
 
-    public void ToggleSummarySelectionMode()
+    public async Task ToggleSummarySelectionModeAsync()
     {
-        IsSummarySelectionMode = !IsSummarySelectionMode;
+        if (IsSummarySelectionMode)
+        {
+            await AppState.Current.ClearSummaryDatesAsync().ConfigureAwait(true);
+            IsSummarySelectionMode = false;
+        }
+        else
+        {
+            IsSummarySelectionMode = true;
+        }
+
+        OnPropertyChanged(nameof(SelectedSummaryDatesText));
         RefreshCalendar();
     }
 
