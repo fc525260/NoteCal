@@ -2,20 +2,17 @@
 
 [English](./README.md) | [简体中文](./README.zh-CN.md)
 
-NoteCal 是一个 Windows 日历笔记工具，用于每日工作记录、出勤状态、农历日期和多日期工作总结。
+NoteCal 是一个原生 WinUI 3 Windows 日历笔记工具，用于每日工作记录、出勤状态、农历日期和多日期工作总结。
 
-`0.7.0` 版本新增原生 WinUI 3 重构版本，同时保留原 Python/PyQt 应用作为行为参考。
-
-## 主要更新
+## 主要功能
 
 - WinUI 3 dashboard，保持月历优先的工作流。
 - 每日笔记编辑区与月历同屏显示。
 - 支持笔记、加班、出差、请假状态点。
 - 请假使用黄色圆点，并且不计入出勤天数。
-- 工作总结可直接从月历界面弹窗打开，不需要切换到单独页面。
-- WinUI 月历显示真实农历文本。
+- 工作总结可直接从月历界面弹窗打开。
+- 月历显示真实农历文本。
 - Windows portable release 采用根目录 `NoteCal.exe`、运行文件 `datas\`、用户数据 `user\` 的结构。
-- 原 Python/PyQt 版本仍可通过 `run.py` 运行。
 
 ## 下载
 
@@ -80,26 +77,6 @@ Run the local WinUI UI acceptance test:
 
 ## 开发
 
-请在项目虚拟环境中安装 Python 依赖：
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
-
-运行 Python 应用：
-
-```powershell
-.\.venv\Scripts\python.exe run.py
-```
-
-运行 Python 标准检查：
-
-```powershell
-.\.venv\Scripts\python.exe -m ruff check src tests
-.\.venv\Scripts\python.exe -m pytest
-.\.venv\Scripts\python.exe -m compileall -q run.py src tests
-```
-
 运行 C# Core 测试：
 
 ```powershell
@@ -120,14 +97,10 @@ NoteCal.Core/        共享 C# 日历、笔记、设置、总结和统计逻辑
 NoteCal.Core.Tests/  轻量 C# 测试运行器
 NoteCal.WinUI/       WinUI 3 桌面应用
 NoteCal.Launcher/    portable 根目录启动器，发布为 NoteCal.exe
-src/                 原 Python/PyQt 应用
-tests/               Python 测试
 scripts/             构建、冒烟和 UI 验收脚本
 ```
 
 ## 数据
-
-Python/PyQt 运行时数据写入 `data/`。
 
 WinUI portable 运行时数据写入根目录 exe 同级：
 

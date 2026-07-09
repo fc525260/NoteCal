@@ -22,20 +22,6 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install Python dependencies
-        run: python -m pip install -r requirements.txt
-
-      - name: Run Python checks
-        run: |
-          python -m ruff check src tests
-          python -m pytest
-          python -m compileall -q run.py src tests
-
       - name: Run core tests
         run: dotnet run --project NoteCal.Core.Tests\NoteCal.Core.Tests.csproj
 
@@ -51,17 +37,31 @@ jobs:
           body: |
             ## NoteCal 0.7.0
 
-            This release is rebuilt by GitHub Actions from the `v0.7.0` tag.
-
             ### Major updates
-            - Added the WinUI 3 dashboard application alongside the existing PyQt version.
+            - WinUI 3 is now the only maintained application version in the repository.
             - Added leave tracking with a yellow calendar dot; leave days do not count as attendance.
             - Added calendar-screen work summary generation through a dialog, so users do not need to leave the month calendar workflow.
             - Added real lunar date text in the WinUI calendar.
             - Added a portable release layout: root `NoteCal.exe`, runtime files in `datas\`, user JSON files in `user\`.
             - Added automated release smoke and UI acceptance scripts for local validation.
 
+            ### 主要更新
+            - 仓库现在只维护 WinUI 3 应用版本。
+            - 新增请假状态，月历使用黄色圆点显示；请假日期不计入出勤天数。
+            - 工作总结改为在月历界面通过弹窗生成，减少跨页面操作。
+            - WinUI 月历显示真实农历文本。
+            - portable 发行版采用根目录 `NoteCal.exe`、运行文件 `datas\`、用户 JSON 文件 `user\` 的结构。
+            - 新增本地发行版冒烟测试和 WinUI UI 自动验收脚本。
+
             ### Portable layout
+            ```text
+            NoteCal.exe
+            datas\runtime\...
+            user\NoteCal_notes.json
+            user\NoteCal_settings.json
+            ```
+
+            ### Portable 层级
             ```text
             NoteCal.exe
             datas\runtime\...
