@@ -19,6 +19,45 @@ public sealed partial class HomePage : Page
     {
         Loaded -= HomePage_Loaded;
         await _viewModel.LoadAsync();
+        UpdateHomeLayoutWidth();
+        DispatcherQueue.TryEnqueue(UpdateCalendarItemWidth);
+    }
+
+    private void HomeScrollViewer_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        UpdateHomeLayoutWidth();
+        DispatcherQueue.TryEnqueue(UpdateCalendarItemWidth);
+    }
+
+    private void CalendarGrid_Loaded(object sender, RoutedEventArgs e)
+    {
+        DispatcherQueue.TryEnqueue(UpdateCalendarItemWidth);
+    }
+
+    private void CalendarGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        UpdateCalendarItemWidth();
+    }
+
+    private void UpdateCalendarItemWidth()
+    {
+        if (CalendarGrid.ActualWidth <= 0 ||
+            CalendarGrid.ItemsPanelRoot is not ItemsWrapGrid itemsPanel)
+        {
+            return;
+        }
+
+        WeekHeaderGrid.Width = CalendarGrid.ActualWidth;
+        itemsPanel.ItemWidth = WeekHeaderGrid.Width / 7d;
+    }
+
+    private void UpdateHomeLayoutWidth()
+    {
+        var viewportWidth = HomeScrollViewer.ViewportWidth;
+        if (viewportWidth > 0)
+        {
+            HomeLayoutGrid.Width = viewportWidth;
+        }
     }
 
     private async void CalendarGrid_ItemClick(object sender, ItemClickEventArgs e)

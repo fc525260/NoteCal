@@ -19,10 +19,10 @@ NoteCal is a native WinUI 3 Windows calendar note app for daily work logs, atten
 
 ## Download
 
-The `v0.7.2` release asset is:
+The `v0.7.3` release asset is:
 
 ```text
-NoteCal-0.7.2-winui3-win-x64-portable.zip
+NoteCal-0.7.3-winui3-win-x64-portable.zip
 ```
 
 Portable layout after extraction:
@@ -43,7 +43,7 @@ Run `NoteCal.exe` from the extracted folder. Runtime dependencies stay under `da
 Build the local WinUI portable release:
 
 ```powershell
-.\scripts\build-winui-release.ps1 -Version 0.7.2
+.\scripts\build-winui-release.ps1 -Version 0.7.3
 ```
 
 Run the local release smoke test:
@@ -63,7 +63,7 @@ Run the local WinUI UI acceptance test:
 构建本地 WinUI portable 发行版：
 
 ```powershell
-.\scripts\build-winui-release.ps1 -Version 0.7.2
+.\scripts\build-winui-release.ps1 -Version 0.7.3
 ```
 
 运行本地发行版冒烟测试：

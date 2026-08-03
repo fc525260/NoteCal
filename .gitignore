@@ -23,6 +23,8 @@ Thumbs.db
 
 # Local-only handoff/audit docs
 private_docs/
+/docs/
+/.understand-anything/
 
 # Local scratch/prototype data
 .superpowers/

@@ -23,7 +23,7 @@ public static class NativeMouse {
 "@
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$packageRoot = Join-Path $repoRoot "dist\NoteCal-0.7.2-winui3-win-x64-portable"
+$packageRoot = Join-Path $repoRoot "dist\NoteCal-0.7.3-winui3-win-x64-portable"
 $exe = Join-Path $packageRoot "NoteCal.exe"
 
 if (-not (Test-Path -LiteralPath $exe)) {

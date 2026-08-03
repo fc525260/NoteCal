@@ -19,10 +19,10 @@ NoteCal 是一个原生 WinUI 3 Windows 日历笔记工具，用于每日工作�
 
 ## 下载
 
-`v0.7.2` 的发行版文件为：
+`v0.7.3` 的发行版文件为：
 
 ```text
-NoteCal-0.7.2-winui3-win-x64-portable.zip
+NoteCal-0.7.3-winui3-win-x64-portable.zip
 ```
 
 解压后的 portable 层级：
@@ -43,7 +43,7 @@ user\NoteCal_settings.json
 构建本地 WinUI portable 发行版：
 
 ```powershell
-.\scripts\build-winui-release.ps1 -Version 0.7.2
+.\scripts\build-winui-release.ps1 -Version 0.7.3
 ```
 
 运行本地发行版冒烟测试：
@@ -63,7 +63,7 @@ user\NoteCal_settings.json
 Build the local WinUI portable release:
 
 ```powershell
-.\scripts\build-winui-release.ps1 -Version 0.7.2
+.\scripts\build-winui-release.ps1 -Version 0.7.3
 ```
 
 Run the local release smoke test:

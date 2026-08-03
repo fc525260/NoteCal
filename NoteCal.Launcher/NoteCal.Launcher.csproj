@@ -9,9 +9,9 @@
     <AssemblyName>NoteCal</AssemblyName>
     <RootNamespace>NoteCal_Launcher</RootNamespace>
     <ApplicationIcon>..\NoteCal.WinUI\Assets\AppIcon.ico</ApplicationIcon>
-    <Version>0.7.2</Version>
-    <AssemblyVersion>0.7.2.0</AssemblyVersion>
-    <FileVersion>0.7.2.0</FileVersion>
+    <Version>0.7.3</Version>
+    <AssemblyVersion>0.7.3.0</AssemblyVersion>
+    <FileVersion>0.7.3.0</FileVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

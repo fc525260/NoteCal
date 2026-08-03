@@ -129,7 +129,7 @@ public sealed partial class MainWindow : Window
         data.uFlags = NativeMethods.NIF_MESSAGE | NativeMethods.NIF_ICON | NativeMethods.NIF_TIP;
         data.hIcon = _trayIconHandle;
         data.uCallbackMessage = NativeMethods.WM_TRAYICON;
-        data.szTip = "NoteCal 0.7.2";
+        data.szTip = "NoteCal 0.7.3";
         NativeMethods.Shell_NotifyIcon(NativeMethods.NIM_ADD, ref data);
         _isTrayIconVisible = true;
     }

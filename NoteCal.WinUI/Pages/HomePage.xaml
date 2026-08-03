@@ -16,8 +16,19 @@
         </Style>
     </Page.Resources>
 
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-    <Grid MinWidth="840" MinHeight="560" Padding="12" RowSpacing="8">
+    <ScrollViewer
+        x:Name="HomeScrollViewer"
+        HorizontalScrollBarVisibility="Disabled"
+        HorizontalScrollMode="Disabled"
+        SizeChanged="HomeScrollViewer_SizeChanged"
+        VerticalScrollBarVisibility="Auto">
+    <Grid
+        x:Name="HomeLayoutGrid"
+        HorizontalAlignment="Stretch"
+        MinWidth="0"
+        MinHeight="560"
+        Padding="12"
+        RowSpacing="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -154,43 +165,52 @@
         <Grid Grid.Row="2" ColumnSpacing="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="*" MaxWidth="280" />
             </Grid.ColumnDefinitions>
 
             <Grid RowSpacing="6">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Grid ColumnSpacing="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock HorizontalAlignment="Center" Text="一" />
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="二" />
-                    <TextBlock Grid.Column="2" HorizontalAlignment="Center" Text="三" />
-                    <TextBlock Grid.Column="3" HorizontalAlignment="Center" Text="四" />
-                    <TextBlock Grid.Column="4" HorizontalAlignment="Center" Text="五" />
-                    <TextBlock Grid.Column="5" HorizontalAlignment="Center" Text="六" />
-                    <TextBlock Grid.Column="6" HorizontalAlignment="Center" Text="日" />
-                </Grid>
-
                 <GridView
                     x:Name="CalendarGrid"
                     AutomationProperties.AutomationId="HomeCalendarGrid"
-                    Grid.Row="1"
+                    Grid.Row="0"
+                    Loaded="CalendarGrid_Loaded"
+                    SizeChanged="CalendarGrid_SizeChanged"
+                    HorizontalContentAlignment="Stretch"
                     IsItemClickEnabled="True"
                     ItemClick="CalendarGrid_ItemClick"
                     ItemsSource="{Binding Days}"
-                    SelectionMode="None">
+                    Padding="0"
+                    SelectionMode="None"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <GridView.Header>
+                        <Grid
+                            x:Name="WeekHeaderGrid"
+                            HorizontalAlignment="Stretch"
+                            Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock HorizontalAlignment="Center" Text="一" />
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Center" Text="二" />
+                            <TextBlock Grid.Column="2" HorizontalAlignment="Center" Text="三" />
+                            <TextBlock Grid.Column="3" HorizontalAlignment="Center" Text="四" />
+                            <TextBlock Grid.Column="4" HorizontalAlignment="Center" Text="五" />
+                            <TextBlock Grid.Column="5" HorizontalAlignment="Center" Text="六" />
+                            <TextBlock Grid.Column="6" HorizontalAlignment="Center" Text="日" />
+                        </Grid>
+                    </GridView.Header>
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <ItemsWrapGrid
@@ -203,13 +223,11 @@
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             <Setter Property="Margin" Value="0" />
                             <Setter Property="MinHeight" Value="68" />
-                            <Setter Property="MinWidth" Value="76" />
                         </Style>
                     </GridView.ItemContainerStyle>
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <Border
-                                MinWidth="72"
                                 MinHeight="62"
                                 Padding="6"
                                 Background="{Binding CellBackground}"
@@ -263,7 +281,7 @@
                 </GridView>
 
                 <StackPanel
-                    Grid.Row="2"
+                    Grid.Row="1"
                     Margin="0,6,0,0"
                     Orientation="Horizontal"
                     Spacing="14">
