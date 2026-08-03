@@ -186,8 +186,16 @@
                     ItemsSource="{Binding Days}"
                     Padding="0"
                     SelectionMode="None"
+                    LayoutUpdated="CalendarGrid_LayoutUpdated"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <GridView.Resources>
+                        <Style TargetType="GridViewHeaderItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="0" />
+                        </Style>
+                    </GridView.Resources>
                     <GridView.Header>
                         <Grid
                             x:Name="WeekHeaderGrid"

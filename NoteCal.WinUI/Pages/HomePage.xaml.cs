@@ -7,6 +7,7 @@ namespace NoteCal_WinUI.Pages;
 public sealed partial class HomePage : Page
 {
     private readonly DashboardViewModel _viewModel = new();
+    private double _lastCalendarWidth = -1;
 
     public HomePage()
     {
@@ -39,6 +40,11 @@ public sealed partial class HomePage : Page
         UpdateCalendarItemWidth();
     }
 
+    private void CalendarGrid_LayoutUpdated(object sender, object e)
+    {
+        UpdateCalendarItemWidth();
+    }
+
     private void UpdateCalendarItemWidth()
     {
         if (CalendarGrid.ActualWidth <= 0 ||
@@ -47,8 +53,16 @@ public sealed partial class HomePage : Page
             return;
         }
 
-        WeekHeaderGrid.Width = CalendarGrid.ActualWidth;
-        itemsPanel.ItemWidth = WeekHeaderGrid.Width / 7d;
+        var calendarWidth = CalendarGrid.ActualWidth;
+        var itemWidth = calendarWidth / 7d;
+        if (itemWidth <= 0 || Math.Abs(_lastCalendarWidth - calendarWidth) < 0.1)
+        {
+            return;
+        }
+
+        _lastCalendarWidth = calendarWidth;
+        WeekHeaderGrid.Width = calendarWidth;
+        itemsPanel.ItemWidth = itemWidth;
     }
 
     private void UpdateHomeLayoutWidth()
